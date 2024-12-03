@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case Diagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            position: relative;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        .rectangle {
+            width: 600px;
+            margin: 0 auto;
+            border: 3px solid #007bff;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            position: relative;
+        }
+        .use-case {
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: white;
+            display: inline-block;
+            width: 90%;
+            text-align: left;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: inline-block;
+            position: absolute;
+            font-weight: bold;
+        }
+        .user {
+            left: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .admin {
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .line {
+            width: 2px;
+            background-color: #333;
+            position: absolute;
+        }
+        .line-user {
+            height: 300px;
+            left: -50px;
+            top: calc(50% - 150px);
+        }
+        .line-admin {
+            height: 300px;
+            right: -50px;
+            top: calc(50% - 150px);
+        }
+        .line-user:after,
+        .line-admin:after {
+            content: '';
+            width: 2px;
+            background-color: #333;
+            position: absolute;
+        }
+        .line-user:after {
+            width: 150px;
+            height: 2px;
+            top: 50%;
+            left: 0;
+        }
+        .line-admin:after {
+            width: 150px;
+            height: 2px;
+            top: 50%;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- User Actor -->
+        <div class="circle user">User</div>
+        <div class="line line-user"></div>
+        <!-- Admin Actor -->
+        <div class="circle admin">Admin</div>
+        <div class="line line-admin"></div>
+        <!-- Use Case Rectangle -->
+        <div class="rectangle">
+            <!-- Common Use Cases -->
+            <div class="use-case">Register</div>
+            <div class="use-case">Login</div>
+            <div class="use-case">View Profile</div>
+            <div class="use-case">View Job Opportunities</div>
+            <div class="use-case">Schedule Appointment</div>
+            <div class="use-case">View Social Activities</div>
+            <!-- Admin-Specific Use Cases -->
+            <div class="use-case">Generate Reports</div>
+            <div class="use-case">Manage Users</div>
+            <div class="use-case">View All Bookings</div>
+            <div class="use-case">Post Social Activities</div>
+            <div class="use-case">Post Job Opportunities</div>
+        </div>
+    </div>
+</body>
+</html>

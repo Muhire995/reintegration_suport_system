@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #cac09e;
+        }
+        .container {
+            text-align: center;
+            background-color: #443d25;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: #cac09e;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #b1a88a;
+        }
+        .button i {
+            margin-right: 10px;
+        }
+        .logout-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #cac09e;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        .logout-link:hover {
+            background-color: #b1a88a;
+        }
+        .logout-link i {
+            margin-right: 5px;
+        }
+        .profile-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #cac09e;
+            color: black;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .profile-button:hover {
+            background-color: #b1a88a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<!--        <a href="{{ url_for('profile') }}" class="profile-button">-->
+<!--            <i class="fas fa-user"></i>-->
+<!--        </a>-->
+        <h1>Welcome to User Dashboard</h1>
+        <a href="{{ url_for('opportunities') }}" class="button">
+            <i class="fas fa-briefcase"></i> View Job Opportunities
+        </a>
+        <a href="{{ url_for('mental_health_appointments') }}" class="button">
+            <i class="fas fa-calendar-alt"></i> View and Schedule Appointments
+        </a>
+        <a href="{{ url_for('community_activities') }}" class="button">
+            <i class="fas fa-users"></i> Social Activities
+        </a>
+
+         <a href="{{ url_for('profile') }}" class="profile-button">
+            <i class="fas fa-user"></i> Profile
+        </a>
+        <a href="{{ url_for('logout') }}" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</body>
+</html>

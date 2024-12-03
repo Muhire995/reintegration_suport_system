@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Status</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #cac09e;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background-color: #443d25;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            margin-top: 70px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 40px;
+
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #cac09e;
+            text-align: left;
+        }
+        th {
+            background-color: #5a5236;
+        }
+        .back-button {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #cac09e;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #b1a88a;
+        }
+        .apply-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Appointment Status</h1>
+
+<!--        <h2>Appointments</h2>-->
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Therapist</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.therapist_name }}</td>
+                    <td>{{ appointment.status }}</td>
+                    <td>{{ appointment.notes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+<!--        <h2>Job Opportunities</h2>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>Job Title</th>-->
+<!--                    <th>Company</th>-->
+<!--                    <th>Description</th>-->
+<!--                    <th>Posted Date</th>-->
+<!--                    <th>Action</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                {% for job in job_opportunities %}-->
+<!--                <tr>-->
+<!--                    <td>{{ job.title }}</td>-->
+<!--                    <td>{{ job.company }}</td>-->
+<!--                    <td>{{ job.description[:100] }}...</td>-->
+<!--                    <td>{{ job.created_at }}</td>-->
+<!--                    <td>-->
+<!--                        <a href="{{ job.application_url }}" class="apply-button" target="_blank">Apply</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                {% endfor %}-->
+<!--            </tbody>-->
+        </table>
+
+        <a href="{{ url_for('profile') }}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+    </div>
+</body>
+</html>

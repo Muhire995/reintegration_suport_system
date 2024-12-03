@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #cac09e;
+            color: #443d25;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        h1 {
+            color: #443d25;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .resource-card {
+            background-color: #443d25;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-title {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-description {
+            color: #cac09e;
+            margin-bottom: 15px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #cac09e;
+            color: #443d25;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #b1a88a;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #443d25;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #443d25;
+            color: #cac09e;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Learning Resources</h1>
+
+        <div class="resource-grid">
+            {% for resource in resources %}
+            <div class="resource-card">
+                <div class="card-content">
+                    <h3 class="card-title">{{ resource.title }}</h3>
+                    <p class="card-description">{{ resource.description }}</p>
+                    <a href="{{ resource.url }}" target="_blank" class="button">Learn More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+<!--    <footer>-->
+<!--        <p>&copy; 2023 Learning Resources. All rights reserved.</p>-->
+<!--    </footer>-->
+</body>
+</html>

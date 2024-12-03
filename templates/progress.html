@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #cac09e;
+            color: #443d25;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #443d25;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #fff;
+            border-bottom: 2px solid #cac09e;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        li p {
+            margin: 5px 0;
+        }
+        li p:first-child {
+            font-weight: bold;
+        }
+        form {
+            background-color: #cac09e;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #443d25;
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #443d25;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #443d25;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #443d25;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #443d25;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #2c2817;
+        }
+        .button i {
+            margin-right: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Progress Tracking</h2>
+        <ul>
+            {% for entry in progress_entries %}
+            <li>
+                <p>{{ entry.description }}</p>
+                <p>Status: {{ entry.status }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <form action="{{ url_for('add_progress') }}" method="post">
+            <h3>Update Progress</h3>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <button type="submit" class="button">
+                <i class="fas fa-plus"></i> Add Progress
+            </button>
+        </form>
+
+        <a href="{{ url_for('dashboard') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>

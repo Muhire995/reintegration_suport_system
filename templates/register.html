@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Reintegration Support System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Existing CSS styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #443d25;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ url_for('static', filename='uploads/three.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .register-container {
+            background-color: none;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.0);
+            width: 100%;
+            max-width: 400px;
+            color: #fff;
+            margin-right: 35rem;
+            margin-bottom: 6rem;
+        }
+        .register-header {
+            text-align: center;
+            margin-bottom: 0rem;
+        }
+        .register-header h2 {
+            color: #cac09e;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .input-group {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cac09e;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 0.6rem;
+            padding-right: 40px; /* Make room for the icon */
+            border: 1px solid #443d25;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .input-group .fa-eye {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #cac09e;
+        }
+        .register-button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #cac09e;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .register-button i {
+            margin-right: 0.5rem;
+        }
+        .register-button:hover {
+            background-color: #443d25;
+        }
+        .additional-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .additional-links a {
+            color: #cac09e;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        .additional-links a i {
+            margin-right: 0.3rem;
+        }
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .input-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 10px;
+    left: 2px;
+    color: #443d25;
+}
+
+.input-icon input {
+    width: 100%;
+    padding: 0.6rem 0.6rem 0.6rem 2.5rem; /* Adjust padding to make space for the icon */
+    border: 1px solid #443d25;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-group .fa-eye {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    cursor: pointer;
+    color: #443d25;
+    margin-left: 18rem;
+}
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+    <h2><i class="fas fa-pen"></i> Register</h2>
+</div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="error-message">
+                    {% for category, message in messages %}
+                        <p><i class="fas fa-exclamation-circle"></i> {{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('register') }}" method="POST">
+            {{ form.csrf_token }}
+<div class="input-group">
+    <label for="username">Username</label>
+    <div class="input-icon">
+        <i class="fas fa-user"></i>
+        <input type="text" id="username" name="username" required>
+    </div>
+</div>
+
+<div class="input-group">
+    <label for="email">Email</label>
+    <div class="input-icon">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" name="email" required>
+    </div>
+</div>
+
+<div class="input-group">
+    <label for="password">Password</label>
+    <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" name="password" required>
+        <i class="fas fa-eye" onclick="togglePassword('password')"></i>
+    </div>
+</div>
+
+<div class="input-group">
+    <label for="confirm_password">Confirm Password</label>
+    <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <i class="fas fa-eye" onclick="togglePassword('confirm_password')"></i>
+    </div>
+</div>
+
+            <button type="submit" class="register-button">
+                <i class="fas fa-pen"></i> Register
+            </button>
+        </form>
+        <div class="additional-links">
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i>Sign In</a>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

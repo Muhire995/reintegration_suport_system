@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #443d25;
+            --secondary-color: #cac09e;
+            --background-color: #cac09e;
+            --card-color: #ffffff;
+            --text-color: #34495e;
+            --hover-color: #cac09e;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--card-color);
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .logout-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #443d25;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .logout-link:hover {
+            background-color: #cac09e;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome to Your Dashboard</h2>
+
+        <div class="card-grid">
+            <div class="card">
+                <a href="{{ url_for('add_resource') }}">
+                    <i class="fas fa-plus-circle"></i>
+                    <span class="card-title">Add Resources</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('resources') }}">
+                    <i class="fas fa-book"></i>
+                    <span class="card-title">Resources</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('forums') }}">
+                    <i class="fas fa-comments"></i>
+                    <span class="card-title">Community Forums</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('add_progress') }}">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="card-title">Add Progress</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('progress') }}">
+                    <i class="fas fa-tasks"></i>
+                    <span class="card-title">Progress Tracking</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('job_opportunities') }}">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="card-title">Job Opportunities</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('appointments') }}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="card-title">Appointments</span>
+                </a>
+            </div>
+            <div class="card">
+                <a href="{{ url_for('profile') }}">
+                    <i class="fas fa-user"></i>
+                    <span class="card-title">Profile</span>
+                </a>
+
+<!--           <a href="{{ url_for('profile') }}" class="profile-button">-->
+<!--            <i class="fas fa-user"></i> Profile-->
+<!--        </a>-->
+
+            </div>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #cac09e;
+            color: #443d25;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #443d25;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        .resources-list, .resource-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .resources-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f5f2e8;
+            border-radius: 5px;
+        }
+        .resources-list li h3 {
+            margin: 0;
+            color: #443d25;
+        }
+        .resources-list li p {
+            margin: 10px 0;
+            color: #443d25;
+        }
+        .resources-list li a {
+            text-decoration: none;
+            color: #443d25;
+            font-weight: bold;
+        }
+        .resources-list li a:hover {
+            text-decoration: underline;
+        }
+        .no-resources {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+        .resource-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #443d25;
+        }
+        .resource-form input, .resource-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #cac09e;
+        }
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #cac09e;
+            color: #443d25;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #b1a88a;
+        }
+        .button i {
+            margin-right: 5px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Resources</h1>
+
+        <div class="resource-form">
+            <h2>Add a New Resource</h2>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <form action="{{ url_for('add_resource') }}" method="POST">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="url">URL:</label>
+                <input type="url" id="url" name="url" required>
+
+                <button type="submit" class="button">
+                    <i class="fas fa-plus"></i> Submit
+                </button>
+            </form>
+        </div>
+
+        <div class="resources-list">
+            <h2>Available Resources</h2>
+            {% if resources %}
+                <ul>
+                    {% for resource in resources %}
+                        <li>
+                            <h3>{{ resource.title }}</h3>
+                            <p>{{ resource.description }}</p>
+                            <a href="{{ resource.url }}" target="_blank">Visit Resource</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-resources">No resources available at the moment.</p>
+            {% endif %}
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</body>
+</html>

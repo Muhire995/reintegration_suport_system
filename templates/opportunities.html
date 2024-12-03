@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Opportunities</title>
+        <style>
+
+        .job-list {
+            list-style-type: none;
+            padding: 0;
+            background-color: #443d25;
+        }
+        .job-item {
+            background-color: #cac09e;
+            border: 1px solid #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .job-title {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .job-company {
+            font-style: italic;
+            color: #666;
+        }
+        .job-description {
+            margin-top: 10px;
+        }
+        .job-apply {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #443d25;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .add-job-form {
+            background-color: #cac09e;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .add-job-form input[type="text"],
+        .add-job-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .add-job-form input[type="submit"] {
+            background-color: #cac09e;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Job Opportunities</h1>
+
+    <ul class="job-list">
+            {% for job in jobs %}
+                <li class="job-item">
+                    <div class="job-title">{{ job.title }}</div>
+                    <div class="job-company">{{ job.company }}</div>
+                    <div class="job-description">{{ job.description }}</div>
+                    <a href="{{ job.application_url }}" class="job-apply" target="_blank">Apply Now</a>
+                </li>
+            {% endfor %}
+        </ul>
+ <a href="{{ url_for('user_dashboard') }}" class="back-link">Back to Dashboard</a>
+</body>
+</html>

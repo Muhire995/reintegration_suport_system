@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Appointments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .appointment-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .appointment-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .appointment-date {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .appointment-therapist {
+            font-style: italic;
+            color: #666;
+        }
+        .appointment-notes {
+            margin-top: 10px;
+        }
+        .add-appointment-form {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .add-appointment-form input[type="datetime-local"],
+        .add-appointment-form input[type="text"],
+        .add-appointment-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .add-appointment-form input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+<!--        <h2>Mental Health Appointments</h2>-->
+
+<!--        <ul class="appointment-list">-->
+<!--            {% for appointment in appointments %}-->
+<!--                <li class="appointment-item">-->
+<!--                    <div class="appointment-date">{{ appointment.appointment_date.strftime('%Y-%m-%d %H:%M') }}</div>-->
+<!--                    <div class="appointment-therapist">Therapist: {{ appointment.therapist_name }}</div>-->
+<!--                    <div class="appointment-notes">Notes: {{ appointment.notes }}</div>-->
+<!--                </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+
+        <div class="add-appointment-form">
+            <h3>Schedule New Appointment</h3>
+            <form method="POST" action="{{ url_for('mental_health_appointments') }}">
+                <input type="datetime-local" name="appointment_date" required>
+                <input type="text" name="therapist_name" placeholder="Therapist Name" required>
+                <textarea name="notes" placeholder="Appointment Notes"></textarea>
+                <input type="submit" value="Schedule Appointment">
+            </form>
+        </div>
+
+        <a href="{{ url_for('user_dashboard') }}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>
