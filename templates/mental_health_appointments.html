@@ -6,20 +6,38 @@
     <title>Mental Health Appointments</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #cac09e;
+            color: #443d25;
+        }
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #443d25;
+            margin-bottom: 20px;
+        }
         .appointment-list {
             list-style-type: none;
             padding: 0;
         }
         .appointment-item {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
+            background-color: #fff;
+            border: 1px solid #cac09e;
             margin-bottom: 10px;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .appointment-date {
             font-size: 1.2em;
-            color: #333;
+            color: #443d25;
         }
         .appointment-therapist {
             font-style: italic;
@@ -27,36 +45,87 @@
         }
         .appointment-notes {
             margin-top: 10px;
+            color: #443d25;
         }
         .add-appointment-form {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
+            background-color: #443d25;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            margin-top: 30px;
         }
         .add-appointment-form input[type="datetime-local"],
         .add-appointment-form input[type="text"],
         .add-appointment-form textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
+            border: 1px solid #cac09e;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #443d25;
+        }
+        .add-appointment-form textarea {
+            resize: vertical;
+            min-height: 100px;
         }
         .add-appointment-form input[type="submit"] {
+            background-color: #cac09e;
+            color: #443d25;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .add-appointment-form input[type="submit"]:hover {
+            background-color: #b1a88a;
+        }
+        .back-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #cac09e;
+            color: #443d25;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #b1a88a;
+        }
+        .flash-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .flash-message.success {
             background-color: #28a745;
             color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 3px;
-            cursor: pointer;
+        }
+        .flash-message.error {
+            background-color: #dc3545;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-<!--        <h2>Mental Health Appointments</h2>-->
+        <h2>Mental Health Appointments</h2>
 
+        <!-- Flash message display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-message {{ messages[0][0] }}">
+                    {{ messages[0][1] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Uncommented appointment list for displaying existing appointments -->
 <!--        <ul class="appointment-list">-->
 <!--            {% for appointment in appointments %}-->
 <!--                <li class="appointment-item">-->
@@ -67,6 +136,7 @@
 <!--            {% endfor %}-->
 <!--        </ul>-->
 
+        <!-- Add appointment form -->
         <div class="add-appointment-form">
             <h3>Schedule New Appointment</h3>
             <form method="POST" action="{{ url_for('mental_health_appointments') }}">

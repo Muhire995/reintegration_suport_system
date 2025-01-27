@@ -112,6 +112,62 @@ def user_status():
 
     return render_template('user_status.html', appointments=appointments, job_opportunities=job_opportunities)
 
+@app.route('/edit_user', methods=['GET', 'POST'])
+def edit_user():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))  # Ensure user is logged in
+
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    # Fetch current user data
+    cursor.execute("SELECT id, username, email, role FROM users WHERE id = %s", (session['user_id'],))
+    user = cursor.fetchone()
+
+    if not user:
+        flash('User not found.', 'error')
+        return redirect(url_for('profile'))
+
+    # Define the form fields and set the initial values from the user's current profile
+    if request.method == 'POST':
+        new_username = request.form['username']
+        new_email = request.form['email']
+        new_password = request.form['password']
+
+        # Handle password update (only if the user provides a new one)
+        if new_password:
+            new_password = generate_password_hash(new_password)
+
+        try:
+            # Update user profile in the database
+            if new_password:
+                query = """
+                    UPDATE users
+                    SET username = %s, email = %s, password = %s
+                    WHERE id = %s
+                """
+                cursor.execute(query, (new_username, new_email, new_password, session['user_id']))
+            else:
+                query = """
+                    UPDATE users
+                    SET username = %s, email = %s
+                    WHERE id = %s
+                """
+                cursor.execute(query, (new_username, new_email, session['user_id']))
+
+            connection.commit()
+            flash('Profile updated successfully!', 'success')
+            return redirect(url_for('profile'))  # Redirect back to the profile page after update
+        except Error as e:
+            print(f"Error: '{e}'")
+            flash('An error occurred while updating the profile.', 'error')
+
+    cursor.close()
+    connection.close()
+
+    return render_template('edit_user.html', user=user)
+
+
 @app.route('/appointments')
 def appointments():
     if 'user_id' not in session:
@@ -120,20 +176,36 @@ def appointments():
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
 
-    # Fetching appointments along with the username and status
-    query = """
-        SELECT a.id, a.appointment_date, a.therapist_name, a.notes, a.status, a.created_at, u.username
-        FROM mental_health_appointments a
-        JOIN users u ON a.user_id = u.id
-        WHERE a.user_id = %s
-    """
-    cursor.execute(query, (session['user_id'],))
+    # Check if the logged-in user is an admin
+    user_id = session['user_id']
+    cursor.execute("SELECT role FROM users WHERE id = %s", (user_id,))
+    user_role = cursor.fetchone()['role']
+
+    # Admin can see all appointments, else user sees their own
+    if user_role == 'admin':
+        # Fetch all appointments for all users
+        query = """
+            SELECT a.id, a.appointment_date, a.therapist_name, a.notes, a.status, a.created_at, u.username
+            FROM mental_health_appointments a
+            JOIN users u ON a.user_id = u.id
+        """
+        cursor.execute(query)
+    else:
+        # Fetch appointments for the logged-in user
+        query = """
+            SELECT a.id, a.appointment_date, a.therapist_name, a.notes, a.status, a.created_at, u.username
+            FROM mental_health_appointments a
+            JOIN users u ON a.user_id = u.id
+            WHERE a.user_id = %s
+        """
+        cursor.execute(query, (user_id,))
 
     appointments = cursor.fetchall()
     cursor.close()
     connection.close()
 
     return render_template('appointments.html', appointments=appointments)
+
 
 
 @app.route('/update_status', methods=['POST'])
@@ -339,7 +411,7 @@ def mental_health_appointments():
             cursor.close()
             connection.close()
 
-        return redirect(url_for('mental_health_appointments'))
+        return redirect(url_for('user_dashboard'))  # Redirect to the dashboard after success
 
     connection = create_connection()
     cursor = connection.cursor(dictionary=True)
@@ -349,7 +421,6 @@ def mental_health_appointments():
     connection.close()
 
     return render_template('mental_health_appointments.html', appointments=appointments)
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
