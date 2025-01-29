@@ -22,6 +22,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             color: #fff;
             text-align: center;
+            width: 100%;
+            max-width: 500px;
         }
         h1 {
             margin-bottom: 30px;
@@ -41,15 +43,38 @@
         .form-group button {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #cac09e;
-            color: black;
+            background-color: #443d25;
+            color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
             margin: 10px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .form-group button:hover {
-            background-color: #b1a88a;
+            background-color: #443d25;
+        }
+        .go-back-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #443d25;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .go-back-button:hover {
+            background-color: #443d25;
+        }
+        .button i {
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -73,7 +98,10 @@
                 <button type="submit">Save Changes</button>
             </div>
         </form>
-        <a href="{{ url_for('profile') }}" class="button">Go Back</a>
+        <!-- Updated "Go Back" button with refined styling -->
+        <a href="{{ request.referrer or url_for('profile') }}" class="go-back-button">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
     </div>
 </body>
 </html>

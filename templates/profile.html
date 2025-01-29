@@ -69,7 +69,8 @@
             <i class="fas fa-edit"></i> Edit Profile
         </a>
 
-        <a href="{{ url_for('user_dashboard') }}" class="button">
+        <!-- Back link to previous page or default to the user dashboard -->
+        <a href="{{ request.referrer or url_for('user_dashboard') }}" class="button">
             <i class="fas fa-arrow-left"></i> Go Back
         </a>
     </div>

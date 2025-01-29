@@ -611,6 +611,53 @@ def add_progress():
         return redirect(url_for('login'))
 
 
+@app.route('/statistics')
+def statistics():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    connection = create_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    # Fetch user role using the correct column name ('id' instead of 'user_id')
+    user_id = session['user_id']
+    cursor.execute("SELECT role FROM users WHERE id = %s", (user_id,))
+    user_role = cursor.fetchone()['role']
+
+    if user_role == 'admin':
+        # Admin sees global statistics
+        cursor.execute("SELECT COUNT(*) AS total_users FROM users")
+        total_users = cursor.fetchone()['total_users']
+
+        cursor.execute("SELECT COUNT(*) AS total_appointments FROM mental_health_appointments")
+        total_appointments = cursor.fetchone()['total_appointments']
+
+        cursor.execute("SELECT COUNT(*) AS total_activities FROM community_activities")
+        total_activities = cursor.fetchone()['total_activities']
+
+        result = render_template('statistics.html', total_users=total_users,
+                                 total_appointments=total_appointments,
+                                 total_activities=total_activities, role=user_role)
+
+    elif user_role == 'user':
+        # Users see only their own statistics
+        cursor.execute("SELECT COUNT(*) AS total_appointments FROM mental_health_appointments WHERE id = %s",
+                       (user_id,))
+        total_appointments = cursor.fetchone()['total_appointments']
+
+        cursor.execute("SELECT COUNT(*) AS total_activities FROM community_activities WHERE id = %s", (user_id,))
+        total_activities = cursor.fetchone()['total_activities']
+
+        result = render_template('statistics.html', total_appointments=total_appointments,
+                                 total_activities=total_activities, role=user_role)
+    else:
+        result = redirect(url_for('login'))
+
+    cursor.close()
+    connection.close()
+
+    return result
+
 
 @app.route('/progress')
 def progress():

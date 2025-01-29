@@ -94,12 +94,34 @@
             <i class="fas fa-users"></i> Social Activities
         </a>
 
+        <a href="{{ url_for('statistics') }}" class="button">
+            <i class="fas fa-users"></i> Analytics
+        </a>
+
+         <a href="{{ url_for('resources') }}" class="button">
+            <i class="fas fa-book"></i> Resources
+        </a>
+
+<!--        <div class="card">-->
+<!--                <a href="{{ url_for('resources') }}">-->
+<!--                    <i class="fas fa-book"></i>-->
+<!--                    <span class="card-title">Resources</span>-->
+<!--                </a>-->
+<!--            </div>-->
+
          <a href="{{ url_for('profile') }}" class="profile-button">
             <i class="fas fa-user"></i> Profile
         </a>
         <a href="{{ url_for('logout') }}" class="logout-link">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
+<!--                <a href="{{ url_for('appointments') }}">-->
+<!--                    <i class="fas fa-calendar-alt"></i>-->
+<!--                    <span class="card-title">Appointments</span>-->
+<!--                </a>-->
+<!--          <a href="{{ url_for('appointments') }}" class="button">-->
+<!--            <i class="fas fa-calendar-alt"></i> Appointments-->
+<!--        </a>-->
     </div>
 </body>
 </html>
